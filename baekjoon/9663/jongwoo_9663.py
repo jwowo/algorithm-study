@@ -9,4 +9,30 @@
 import sys
 
 n = int(sys.stdin.readline())
+col = [ 0 for _ in range(n+1) ]
+count = 0
 
+def check_validation(x):
+    # 같은 열이 있는지 & 대각선이 있는지 체크
+    for i in range(1, x):
+        # 기울기
+        if ( col[i] == col[x] or abs(col[x] - col[i]) == (x - i) ):
+            return False
+
+    return True
+
+def queen(x):
+    global count
+
+    if x > n:
+        count += 1
+
+    # c[0] -> c[1] -> ... -> c[n]
+    else:
+        for i in range(1, n+1):
+            col[x] = i
+            if check_validation(x):
+                queen(x+1)
+                
+queen(1)
+print(count)
