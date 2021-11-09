@@ -40,7 +40,8 @@ def insertion_sort(n_list):
 
         n_list[j] = temp
 
-# 입력받은 수 배열에 저장
+# 입력받은 수
+#  배열에 저장
 for i in range(n):
     num = int(input())
     n_list.append(num)
