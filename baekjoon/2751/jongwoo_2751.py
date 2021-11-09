@@ -122,6 +122,50 @@ def counting_sort(arr):
             for j in range(count[i]):
                 print(i)
 
+def merge(arr, m, middle, n):
+    pass
+    # 1. 일단 다 반으로 나누고
+    # 2. 하나가 되면 병합하면서 정렬한다.
+
+    # 합치는 과정
+    i = m
+    j = middle + 1
+    k = m
+
+    temp = [0] * (m - n + 1)
+
+    # i와 j의 값을 하나씩 비교하면서 더 작은 값을 temp array에 넣기
+    while i <= middle and j <= n:
+        if arr[i] < arr[j]:
+            temp[k] = arr[i]
+            i += 1
+        else:
+            temp[k] = arr[j]
+            j += 1
+        k += 1
+
+    # 남은 데이터 넣기
+    if i > middle:
+        for t in range(j, n+1):
+            temp[k] = arr[t]
+            k += 1
+    else:
+        for t in range(i, middle + 1):
+            temp[k] = arr[t]
+            k += 1
+
+
+
+def merge_sort(arr, m, n):
+    # 크기가 1보다 클때만 분할한다.
+    if m < n:
+        middle = ( m + n ) // 2
+        merge_sort(arr, m, middle)
+        merge_sort(arr, middle + 1, n)
+        merge(arr, m, middle, n)
+
+    
+
 
 
 
