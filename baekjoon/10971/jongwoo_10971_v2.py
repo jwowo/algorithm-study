@@ -7,10 +7,7 @@ maps = []
 for _ in range(num):
     maps.append(list(map(int, sys.stdin.readline().split())))
 
-# arr = [ x for x in range(num) ]
-# methods = (list(permutations(arr)))
-#  |--> 최적화
-methods = list(permutations(range(num)))
+methods = permutations(range(num))
 
 # 접근 방법 1
 # 모든 조합을 이용하여 다 돌려보고 최솟값 구하기 
@@ -20,9 +17,8 @@ methods = list(permutations(range(num)))
 min_cost = 1000000 * num
 
 # 모든 조합
-for i in range(len(methods)):
-    method = methods[i]
-    current_cost = 0
+for method in methods:
+    current_cost = maps[ method[-1] ][ method[0] ]
     flag = True
 
     # 다시 돌아오는 길이 막혀있다면
@@ -32,7 +28,7 @@ for i in range(len(methods)):
     # 각각의 조합
     for j in range(len(method)-1):  
         from_c = method[j]
-        to_c = method[j]
+        to_c = method[j+1]
 
         if maps[ from_c ][ to_c ] == 0:
             flag = False
@@ -46,6 +42,7 @@ for i in range(len(methods)):
 
     if flag == False:
         continue
+
 
     if current_cost < min_cost:
         min_cost = current_cost
