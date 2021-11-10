@@ -7,8 +7,10 @@ maps = []
 for _ in range(num):
     maps.append(list(map(int, sys.stdin.readline().split())))
 
-arr = [ x for x in range(num) ]
-methods = (list(permutations(arr)))
+# arr = [ x for x in range(num) ]
+# methods = (list(permutations(arr)))
+#  |--> 최적화
+methods = list(permutations(range(num)))
 
 # 접근 방법 1
 # 모든 조합을 이용하여 다 돌려보고 최솟값 구하기 
@@ -22,15 +24,18 @@ for i in range(len(methods)):
     method = methods[i]
     current_cost = 0
 
+    # 다시 돌아오는 길이 막혀있다면
+    if maps[method[-1]][method[0]] == 0:
+        continue
+
     # 각각의 조합
-    for j in range(len(method)):
+    for j in range(len(method)):  
         # 시작도시
         if j == 0:
             start_city = method[j]
             
-            if maps[ method[j] ][ method[j + 1] ] == 0:
+            if maps[ method[j] ][ method[j + 1] ] == 0 or current_cost > min_cost:
                 break
-                current_cost += (1000000 * num)
                 #print(f'cost {j} : { maps[ method[j] ][ method[j + 1] ] }')
             else:
                 current_cost += maps[ method[j] ][ method[j + 1] ]
@@ -38,22 +43,20 @@ for i in range(len(methods)):
 
         # 마지막 도시일 경우
         elif j == len(method) - 1:
-            # 그 도시로 못갈때 if 문 필요(maps 가 0일때)
-            if maps[ method[j] ][ start_city ] == 0:
+            if current_cost > min_cost:
                 break
-                current_cost += (1000000 * num)
+            current_cost += maps[ method[j] ][ start_city ]
+            # 그 도시로 못갈때 if 문 필요(maps 가 0일때)
                 #print(f'cost {j} : { maps[ method[j] ][ start_city ] }')
-            else:
-                current_cost += maps[ method[j] ][ start_city ]
+
+                
                 #print(f'cost {j} : { maps[ method[j] ][ start_city ] }')
                 #print(f'마지막은 { method[j] } 도시에서 { start_city } 도시로 이동')
         
         # 중간 도시들 경유할 때
         else:
-            if  maps[ method[j] ][ method[j+1] ] == 0:
-                break
-                current_cost += (1000000 * num)
-                
+            if  maps[ method[j] ][ method[j+1] ] == 0 or current_cost > min_cost:
+                break            
                 #print(f'cost {j} : { maps[ method[j] ][ method[j+1] ] }')
             else:
                 current_cost += maps[ method[j] ][ method[j+1] ]
