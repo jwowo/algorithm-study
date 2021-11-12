@@ -10,7 +10,6 @@
 """
 import sys
 
-
 def binary_search(array, left, right):
     """
     Args:
@@ -19,6 +18,7 @@ def binary_search(array, left, right):
         end     (int)   : 탐색을 진행할 마지막 인덱스
         target  (int)   : 찾고자하는 값 
     """
+
     result = array[left] + array[right]
     min_left = left
     min_right = right
