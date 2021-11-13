@@ -58,8 +58,6 @@ def binary_search_index(lis_list, value):
     lis_list[target_idx] = value
             
             
-            
-
 def check_lis(lis_list, value):
     # lis 배열에 값이 없을때 그냥 추가 (첫번째 인덱스)
     if (len(lis_list) == 0):
