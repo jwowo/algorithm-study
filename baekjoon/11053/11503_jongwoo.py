@@ -27,10 +27,11 @@
 
 import sys
 
-n = int(sys.stdin.readline().strip())
-arr = list(map(int, sys.stdin.readline().split()))
+# n = int(sys.stdin.readline().strip())
+# arr = list(map(int, sys.stdin.readline().split()))
 
-# arr = [1, 100, 101, 2, 3, 4, 5, 6]
+n = 8
+arr = [1, 100, 101, 2, 3, 4, 5, 6]
 # arr = [10, 20, 10, 30, 20, 50]
 # print(f'초기 배열 : {arr}')
 
