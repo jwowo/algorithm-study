@@ -28,15 +28,15 @@ answer = [] : 수신탑 인덱스 저장
 """
 for i in range(n):
     while stack:
-        if stack[-1][1] > towers[i]:
+        if stack[-1][1] > towers[i]: # 수신 가능한 상황 (나보다 높은 탑이 있다)
             ans.append(stack[-1][0] + 1)
             break
-        else:
+        else:   
             stack.pop()
     
-    if not stack:
+    if not stack:   # 스택이 비면 레이저를 수신할 탑이 없다.
         ans.append(0)
 
-    stack.append( [i, towers[i] ] )
+    stack.append( [i, towers[i] ] ) # 인덱스, 값 스택에 push
 
 print(" ".join(map(str, ans)))
