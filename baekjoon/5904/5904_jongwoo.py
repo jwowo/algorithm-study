@@ -23,7 +23,7 @@ import sys
 target = int(sys.stdin.readline())
 
 """
-(1)
+----- (1) -----
 s[0] -> s[1] -> s[2] -> s[3] 순으로 stage가 증가한다고 생각하면서
 while문을 통해  몇번째 stage에서 target의 길이를 넘어서고, 
 그 수열의 길이가 무엇인지를 찾는다.
@@ -47,7 +47,7 @@ while length < target:
 
 
 """
-(2)
+----- (2) -----
 target인덱스가 S(stage) 수열에 속한다는 것을 알았다.
 이제 target인덱스가
 
