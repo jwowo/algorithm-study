@@ -27,50 +27,68 @@ bfs를 돌면서
     끝까지 갔는데 괜찮으면 return 'ㅛㄷㄴ
 """
 
+# 포인트는 집합 정보(상태)를 확인하기 위해서는 다른 bfs문제와 다르게 
+# 이미 방문 노드에 대해서도 집합 정보(상태)를 확인해야한다.
 import sys
 from collections import deque
 
 def bfs(x):
     queue = deque()
     queue.append(x)
-    visited[x] = True
 
-    # 상태 지정을 해줘야할 듯
     status[x] = 1
 
     while queue:
         v = queue.popleft()
 
         for i in graph[v]:
-            # if not visited[i]:
             # 아직 상태가 없을 경우 부모 노드와 반대로 설정한다.
             if status[i] == 0:
-                if status[v] == 1:
-                    status[i] == 0
-                else:
-                    status[i] == 1
-            # 부모 노드와 자식 노드의 상태가 같을 경우
-            elif status[v] == status [i]
-                return False
-            # q
+                status[i] = -status[v]
+                queue.append(i)
             else:
-            queue.append(i)
-            
+                # 이전에 상태를 이미 지정해줬는데 부모노드와 자식노드의 상태가 같다면 
+                # 이분 그래프가 아니므로 False를 반환한다.
+                if status[i] == status[v]:
+                    return False
 
+    return True
+            
 
 k = int(sys.stdin.readline())
 
 for _ in range(k):
     # v : 정점의 개수, e : 간선의 개수
     v, e = map(int, sys.stdin.readline().split())
+    
     # graph : 인접 노드 정보, visited : 방문 정보, status : 집합 정보 
     graph = [[] for _ in range(v + 1)]
-    # visited = [False] * (v + 1)
     status = [0] * (v + 1)
+
     # 간선의 정보 입력 받음
     for _ in range(e):
         a, b = map(int, sys.stdin.readline().split())
         graph[a].append(b)
         graph[b].append(a)
 
-    print(graph)
+    """
+    (주의) 모든 노드가 연결되어 있지 않고 떨어져 있을 때를 생각해야한다.
+    (예시) 
+        1 (테스트 케이스 개수)
+        2 (간선 개수)
+        1 3 (긴선 정보, 1과 3이 연결되어 있다)
+        4 5 (긴선 정보, 4와 5가 연결되어 있다)
+    이렇게 떨어져 있는 그래프 일 수 있으므로 각 노드 별로 
+    인접 노드중에 같은 집합이 있는지를 bfs를 통해 확인한다.
+    """
+    flag = True
+    
+    for i in range(1, v + 1):
+        if status[i] == 0:
+            if not bfs(i):
+                flag = False
+    
+    if flag:
+        print('YES')
+    else:
+        print('NO')
