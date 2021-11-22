@@ -1,3 +1,5 @@
+# https://otu165.tistory.com/6
+
 import sys
 from collections import deque
 read = sys.stdin.readline
