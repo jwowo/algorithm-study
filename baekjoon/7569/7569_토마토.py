@@ -84,23 +84,24 @@ bfs()
 
 
 flag = False
-answer = 0
+answer = -1
 
 for i in range(h):
     for j in range(n):
         for k in range(m):
             if tomatoes[i][j][k] == 0:
-                Flag = True
-                break
+                flag = True
+                
             answer = max(answer, tomatoes[i][j][k])
 
 # BFS 탐색으로 익은 토마토의 인접한 안 익은 토마토들에 대해 익게 만들었지만
 # 만약 안익은 토마토( 0 ) 이 존재하면 -1을 출력하고 다 익었다면 제일 큰 값에 -1을 해준 값을 출력한다.
 if flag:
     answer = -1
-elif answer == -1:
+elif answer == 1:
     answer = 0
 else:
     answer -= 1
 
 print(answer)
+
