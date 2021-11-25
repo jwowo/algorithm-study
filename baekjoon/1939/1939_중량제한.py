@@ -40,6 +40,7 @@ cpu가 1초에 약 1억의 수를 연산할 수 있다고 가정하면
     이동할 수 없으면 'NO' 를 반환하여 무게의 작게 만들고 조건을 만족하는지 탐색한다. 
 """
 
+"""이분 탐색, BFS
 import sys
 from collections import deque
 
@@ -110,3 +111,63 @@ while min_weight <= max_weight:    # To Do (조건)
         max_weight = mid  - 1
 
 print(result)
+"""
+
+import sys
+from collections import deque
+
+input = sys.stdin.readline
+
+# 입력값 저장
+n, m = map(int, input().split())
+graph = [[] for _ in range(n + 1)]
+
+for _ in range(m):
+    island_1, island_2, weight = map(int, input().split())
+    graph[island_1].append((island_2, weight))
+    graph[island_2].append((island_1, weight))
+
+min_weight = 1
+max_weight = 1000000000
+
+# 시작 도시와 도착 도시 
+start_island, end_island = map(int, input().split())
+
+INF = int(1e9)
+visited = [False] * (n + 1)
+distance = [INF] * (n + 1)
+
+def get_smallest_node():
+    min_value = INF
+    index = 0
+    for i in range(1, n + 1):
+        if distance[i] < min_value and not visited[i]:
+            min_value = distance[i]
+            index = i
+    return index
+
+def dijkstra(start):
+    # 시작노드에 대해서 초기화
+    distance[start] = 0
+    visited[start] = True
+    for j in graph[start]:
+        distance[j[0]] = j[1]
+    # 시작 노드를 제외한 전체 n - 1개의 노드에 대해 반복
+    for i in range(n - 1):
+        # 현재 최단 거리가 가장 짧은 노드를 꺼내서, 방문 처리
+        now = get_smallest_node()
+        visited[i] = True
+        # 현재 노드와 연결된 다른 노드를 확인
+        for j in graph[now]:
+            cost = distance[now] + j[1]
+            # 현재 노드를 거쳐서 다른 노드로 이동하는 거리가 더 짧은 경우
+            if cost < distance[j[0]]:
+                distance[j[0]] = cost
+
+# 다익스트라 알고리즘을 수행
+dijkstra(start_island)
+
+# print(distance)
+print(distance[end_island])
+
+print(distance)
