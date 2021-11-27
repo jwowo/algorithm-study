@@ -16,32 +16,15 @@
 
 import sys
 
-equation = sys.stdin.readline().rstrip()
+equation = sys.stdin.readline().strip().split('-')
 
-splited_equation = equation.split('-')
 result = 0
 
-for idx, variable in enumerate(splited_equation):
-    if idx == 0:
-        if '+' in variable:
-            temp = variable.split('+')
-            temp2 = 0
-            for i in temp:
-                temp2 += int(i)
-            result += int(temp2)
-        else:
-            result += (int(splited_equation[0]))
-    
-    else:
-        if '+' in variable:
-            temp = variable.split('+')
-            temp2 = 0
-            for i in temp:
-                 temp2 += int(i)
+for i in equation[0].split('+'):
+    result += int(i)
 
-            result -= int(temp2)
-
-        else:
-            result -= int(variable)
+for i in equation[1:]:
+    for j in i.split('+'):
+        result -= int(j)
 
 print(result)
