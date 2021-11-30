@@ -45,20 +45,37 @@ d = [0] * (k + 1)
 #                 d[i-1][sack_weight - goods_weight] + goods_value,
 #                 d[i-1][sack_weight]
 #             )
+# print(d[-1][-1])
 
-for goods_weight, goods_value in travel_goods:
+
+
+
+
+import sys
+import copy
+
+input = sys.stdin.readline
+
+n, k = map(int, input().split())
+
+travel_goods = []
+for _ in range(n):
+    weight, value = map(int, input().split())
+    travel_goods.append((weight, value))
+
+# 메모이제이션을 위한 dp 테이블 생성
+d = [[0] * (k + 1) for _ in range(n)]
+
+
+for i in range(n):
+    goods_weight, goods_value = travel_goods[i]
+
     for sack_weight in range(1, k + 1):
         if sack_weight < goods_weight:
-            continue
+            d[i][sack_weight] = d[i-1][sack_weight]
         else:
-            print(goods_weight, goods_value, sack_weight)
-            d[sack_weight] = max(
-                d[sack_weight - goods_weight] + goods_value,
-                d[sack_weight]
+            d[i][sack_weight] = max(
+                d[i-1][sack_weight - goods_weight] + goods_value,
+                d[i-1][sack_weight]
             )
-
-        # print(goods_weight)
-        print(d)
-
-# print(d)
-# print(d[-1][-1])
+print(d[-1][-1])
