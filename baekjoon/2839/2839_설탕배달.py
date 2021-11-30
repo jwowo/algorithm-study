@@ -18,7 +18,9 @@ import sys
 input = sys.stdin.readline
 
 N = int(input())
-dp = [5001] * (N + 2)
+
+# N 이 0 일때도 line 25 에서 dp[5] = 1 로 초기화하기 때문
+dp = [5001] * (N + 5)
 
 dp[3] = 1
 dp[5] = 1
