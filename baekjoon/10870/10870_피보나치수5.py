@@ -11,11 +11,17 @@ import sys
 input = sys.stdin.readline
 
 n = int(input())
+if n == 0:
+    print(0)
+    sys.exit()
+
+dp = [0] * (n + 1)
+dp[0] = 0
+dp[1] = 1
 
 def fibo(n):
-    if n < 2:
-        return n
-    
-    return fibo(n - 1) + fibo(n - 2)
+    for i in range(2, n + 1):
+        dp[i] = dp[i - 1] + dp[i - 2]
 
-print(fibo(n))
+fibo(n)
+print(dp[n])
