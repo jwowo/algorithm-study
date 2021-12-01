@@ -23,4 +23,4 @@ for _ in range(N) :
             break
     # 조합 없이 물품 1개만 넣었을 때의 value는 다음과 같이 넣어준다.
     table[weight] = max(table[weight], value)
-print(max(table))
+print(max(table)) 
